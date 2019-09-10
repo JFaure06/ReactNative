@@ -1,9 +1,8 @@
 // IntroScreen.js
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {View, Text, Dimensions, AsyncStorage} from 'react-native';
-import { setWorldAlignment } from 'expo/build/AR';
+import { connect } from 'react-redux';
+import { View, Text, Dimensions, AsyncStorage } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -18,7 +17,7 @@ const styleSheet = {
     nameStyle: {
         color: 'red',
         fontSize: 25,
-        fontWeight: 'bolde',
+        fontWeight: 'bold',
     },
 };
 
@@ -39,7 +38,7 @@ const IntroScreen = props => {
 
     const [name, setName] = useState('');
 
-    return(
+    return (
         <View style={styleSheet.container}>
             <Text style={styleSheet.nameStyle}>{name}</Text>
         </View>
