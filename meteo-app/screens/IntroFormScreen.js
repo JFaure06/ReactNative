@@ -31,6 +31,11 @@ const IntroFormScreen = props => {
     async function handleSubmit() {
         if (name !== '') {
             await AsyncStorage.setItem('name', name);
+            const action = {
+                type:'app/setName',
+                payload: {name}
+            };
+            dispatch(action);
             navigation.navigate('Welcome');
         }
     }

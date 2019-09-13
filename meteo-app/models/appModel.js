@@ -3,9 +3,9 @@ export const app = {
         name: '',
     },
     reducers: {
-        setName(state, name) {
+        setName(state, {name}) {
             return { ...state, name };
         },
     },
     effects: {},
-}
+};
