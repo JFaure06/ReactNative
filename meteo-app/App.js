@@ -4,6 +4,7 @@ import { init } from '@rematch/core';
 import { Provider } from 'react-redux';
 import { app } from './models/appModel';
 import AppNavigator from './navigation/AppNavigator';
+import NavigationService from './navigation/NavigationService';
 
 
 //Generation du Redux Store
@@ -14,7 +15,10 @@ const store = init({
 export default function App() {
   return (
     <Provider store={store}>
-      <AppNavigator />
+      <AppNavigator ref={navigatorRef => {
+          NavigationService.setTopLevelNavigator(navigatorRef);
+        }}
+      />
     </Provider>
   );
 }
