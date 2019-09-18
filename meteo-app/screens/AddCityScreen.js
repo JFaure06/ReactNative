@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { View, Text, TextInput, Button, Dimensions, FlatList } from 'react-native';
-import ItemList from '../components/itemList';
+import { View, Text, TextInput, Button, Dimensions, SectionList } from 'react-native';
+import ItemList from '../components/ItemList';
 
 const { width } = Dimensions.get('window');
 
@@ -45,8 +45,8 @@ const AddCityScreen = props => {
     }
 
     const [nameCity, setNameCity] = useState('');
-    const { dispatch, cities } = props;
-
+    //const { dispatch, cities } = props;
+    const { dispatch, app: { informations, cities } } = props;
     return (
         <View style={styleSheet.container}>
             <Text >Add a City</Text>
@@ -60,6 +60,16 @@ const AddCityScreen = props => {
                 title="OK"
                 color="#841584"
             />
+            {
+                Object.keys(informations).length > 0 ? (
+                    <SectionList
+                        sections={cities}
+                        renderItem={({ item }) => <ItemList data={informations[item]} />}
+                        keyExtractor={item => item}
+                    />
+                ) :
+                    <Text>Loading...</Text>
+            }
         </View>
     )
 };

@@ -14,7 +14,10 @@ export const app = {
         },
     },
     effects: (dispatch) => ({
-        async getMeteoInformations() {
+        async getMeteoInformations(location) {
+            if(location) {
+                const { coords: {}}
+            }
             const response = await requestGet('weather', 'q=Antibes&units=metric');
             if (response) {
                 this.setInformation(response);

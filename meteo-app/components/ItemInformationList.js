@@ -1,6 +1,7 @@
 import React, { } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Card } from 'react-native-elements';
+import * as Permissions from 'expo-permissions';
 
 const styleSheet = {
     textStyle: {
@@ -8,7 +9,6 @@ const styleSheet = {
         fontSize: 28,
         textAlign: 'center',
         fontStyle: 'italic',
-        
     },
     /* item: {
         backgroundColor: '#f9c2ff',
@@ -16,15 +16,38 @@ const styleSheet = {
         marginVertical: 8,
         marginHorizontal: 16,
       }, */
-      title: {
+    title: {
         fontSize: 35,
         textAlign: 'center',
         fontWeight: 'bold',
         textDecorationLine: 'underline',
-      },
+    },
+    cardStyle: {
+        borderStyle: 'solid',
+        borderRadius: 4,
+        borderWidth: 0.5,
+        borderColor: 'blue',
+    },
+    textStyle: {
+        color: 'black',
+        fontSize: 28,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        textDecorationLine: 'underline',
+    },
+    textStyle2: {
+        color: 'black',
+        fontSize: 18,
+        fontStyle: 'italic',
+    },
+    errorStyle: {
+        color: 'red',
+        fontSize: 25,
+        fontWeight: 'bold',
+    }
 };
 
-const ItemList = props => {
+const ItemInformationList = props => {
     const { data } = props;
     return (
         <View>
@@ -38,4 +61,4 @@ const ItemList = props => {
     );
 };
 
-export default ItemList;
+export default ItemInformationList;
