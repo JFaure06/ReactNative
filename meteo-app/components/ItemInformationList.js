@@ -1,7 +1,6 @@
-import React, { } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { Card } from 'react-native-elements';
-import * as Permissions from 'expo-permissions';
 
 const styleSheet = {
     textStyle: {
@@ -49,6 +48,7 @@ const styleSheet = {
 
 const ItemInformationList = props => {
     const { data } = props;
+
     return (
         <View>
             <Card style={styleSheet.cardStyle}>

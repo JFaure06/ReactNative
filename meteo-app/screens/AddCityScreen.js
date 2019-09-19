@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { View, Text, TextInput, Button, Dimensions, SectionList } from 'react-native';
-import ItemList from '../components/ItemList';
+import { View, Text, TextInput, Dimensions, Image, ScrollView, SafeAreaView } from 'react-native';
+import { Button, Card, ListItem, ButtonGroup } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import MaterialCommunityIcons from 'react-native-vector-icons';
 
 const { width } = Dimensions.get('window');
 
@@ -28,7 +30,19 @@ const styleSheet = {
         backgroundColor: '#f9c2ff',
         padding: 20,
         marginVertical: 8,
-        marginHorizontal: 16,
+        marginHorizontal: 20,
+    },
+    imageStyle: {
+        width: 500,
+        height: 200,
+        padding: 5,
+    },
+    cardStyle: {
+        width: 20,
+        height: 80,
+        padding: 20,
+        marginVertical: 8,
+        marginHorizontal: 20,
     }
 };
 
@@ -37,40 +51,66 @@ const AddCityScreen = props => {
     async function handleSubmit() {
         if (nameCity !== '') {
             const action = {
-                type: 'app/addCity',
+                type: 'meteo/addCity',
                 payload: { nameCity }
             };
             dispatch(action);
         }
     }
 
+    /* function removeCity() {
+        const action = {
+            type: 'meteo/removeCity',
+            payload: { index }
+        }
+        dispatch(action);
+    } */
+
     const [nameCity, setNameCity] = useState('');
-    //const { dispatch, cities } = props;
-    const { dispatch, app: { informations, cities } } = props;
+    const { dispatch, meteo: { informations, cities, index } } = props;
+
     return (
-        <View style={styleSheet.container}>
-            <Text >Add a City</Text>
-            <TextInput
-                style={styleSheet.input}
-                onChangeText={(text) => setNameCity(text)}
-                value={nameCity}
-            />
-            <Button
-                onPress={handleSubmit}
-                title="OK"
-                color="#841584"
-            />
-            {
-                Object.keys(informations).length > 0 ? (
-                    <SectionList
-                        sections={cities}
-                        renderItem={({ item }) => <ItemList data={informations[item]} />}
-                        keyExtractor={item => item}
-                    />
-                ) :
-                    <Text>Loading...</Text>
-            }
-        </View>
+        <SafeAreaView style={styleSheet.container}>
+            <ScrollView>
+                <Image
+                    style={styleSheet.imageStyle}
+                    source={{ uri: 'http://triciaplayfish.files.wordpress.com/2012/02/12-02-22-rc_blog_weatherwk-header.jpg' }}
+                />
+                <Text >Add a City</Text>
+                <TextInput
+                    style={styleSheet.input}
+                    onChangeText={(text) => setNameCity(text)}
+                    value={nameCity}
+                />
+                <Button
+                    onPress={handleSubmit}
+                    icon={
+                        <Icon
+                            name="check-circle"
+                            size={15}
+                            color="#841584"
+                        />
+                    }
+                    iconLeft
+                    title="OK"
+                />
+
+                <Card style={styleSheet.cardStyle} title="favorite cities :">
+                    {
+                        Object.keys(informations).length > 0 ? cities.map(nameCity => {
+                            const infoCity = informations[nameCity];
+                            return (
+                                <ListItem
+                                    key={infoCity.id}
+                                    title={nameCity}
+                                    bottomDivider
+                                />
+                            );
+                        }) : <Text>Loading...</Text>
+                    }
+                </Card>
+            </ScrollView>
+        </SafeAreaView>
     )
 };
 
@@ -81,4 +121,4 @@ AddCityScreen.propTypes = {
     }).isRequired,
 };
 
-export default connect(state => state.app)(AddCityScreen);
+export default connect(({ meteo }) => ({ meteo }))(AddCityScreen);

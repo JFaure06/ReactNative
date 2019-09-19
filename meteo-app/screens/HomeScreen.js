@@ -25,12 +25,11 @@ const styleSheet = {
 const HomeScreen = props => {
 
     useEffect(() => {
-        dispatch({ type: 'app/getMeteoInformations' });
+        dispatch({ type: 'meteo/getMeteoInformations' });
     }, []);
 
-    const { dispatch, app: { informations, cities } } = props;
-    const [error, setError] = useState('');
-
+    const { dispatch, meteo: { informations, cities } } = props;
+    
     return (
         <View style={styleSheet.container}>
             <Image
@@ -53,10 +52,10 @@ const HomeScreen = props => {
 
 HomeScreen.propTypes = {
     dispatch: PropTypes.func.isRequired,
-    app: PropTypes.shape({
+    meteo: PropTypes.shape({
         informations: PropTypes.object,
     }).isRequired,
 };
 
-//export default connect(state => state.app)(HomeScreen);
-export default connect(({ app }) => ({ app }))(HomeScreen);
+//export default connect(state => state.meteo)(HomeScreen);
+export default connect(({ meteo }) => ({ meteo }))(HomeScreen);
